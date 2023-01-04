@@ -11,7 +11,7 @@
 // 在页面上插入代码
 const script = document.createElement('script');
 script.setAttribute('type', 'text/javascript');
-script.setAttribute('src', chrome.extension.getURL('pageScripts/main.js'));
+script.setAttribute('src', chrome.runtime.getURL('pageScripts/main.js'));
 document.documentElement.appendChild(script);
 
 script.addEventListener('load', () => {
@@ -49,12 +49,14 @@ if (window.self === window.top) {
       iframe.style.setProperty('transition', 'all .4s', 'important');
       iframe.style.setProperty('box-shadow', '0 0 15px 2px rgba(0,0,0,0.12)', 'important');
       iframe.frameBorder = "none"; 
-      iframe.src = chrome.extension.getURL("iframe/index.html")
-      document.body.appendChild(iframe);
+      iframe.src = chrome.runtime.getURL("iframe/index.html")
+      if(document.body){
+        document.body.appendChild(iframe);
+      }
       let show = false;
 
       chrome.runtime.onMessage.addListener((msg, sender) => {
-        if (msg == 'toggle') {
+        if (msg === 'toggle') {
           show = !show;
           iframe.style.setProperty('transform', show ? 'translateX(0)' : 'translateX(920px)', 'important');
         }

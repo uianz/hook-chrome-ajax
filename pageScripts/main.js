@@ -52,7 +52,7 @@ let ajax_interceptor_qoweifjqon = {
     for (let attr in xhr) {
       if (attr === 'onreadystatechange') {
         xhr.onreadystatechange = (...args) => {
-          if (this.readyState == 4) {
+          if (this.readyState === 4) {
             // 请求成功
             if (ajax_interceptor_qoweifjqon.settings.ajaxInterceptor_switchOn) {
               // 开启拦截
@@ -80,7 +80,7 @@ let ajax_interceptor_qoweifjqon = {
         // responseText和response不是writeable的，但拦截时需要修改它，所以修改就存储在this[`_${attr}`]上
         if (attr === 'responseText' || attr === 'response' || attr === 'status' || attr === 'statusText') {
           Object.defineProperty(this, attr, {
-            get: () => this[`_${attr}`] == undefined ? xhr[attr] : this[`_${attr}`],
+            get: () => this[`_${attr}`] === undefined ? xhr[attr] : this[`_${attr}`],
             set: (val) => this[`_${attr}`] = val,
             enumerable: true
           });
@@ -133,7 +133,7 @@ let ajax_interceptor_qoweifjqon = {
   
         const newResponse = new Response(stream, {
           headers: response.headers,
-          ok: code ? code=="200" : response.ok,
+          ok: code ? code==="200" : response.ok,
           status: code || response.status,
           statusText: response.statusText,
         });

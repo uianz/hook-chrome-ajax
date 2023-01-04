@@ -165,8 +165,16 @@ export default class Main extends Component {
     return (
       <div className="main">
         <ToastContainer autoClose={1500}/>
+        <Button
+            style={{marginLeft: '15px', float: 'left'}}
+            onClick={e => {
+              chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+                chrome.tabs.sendMessage(tabs[0].id, "toggle");
+              })
+            }}
+         >x</Button>
         <Switch
-          checkedChildren="hook on" unCheckedChildren="hook off"
+          checkedChildren="hook onn" unCheckedChildren="hook off"
           style={{zIndex: 10}}
           defaultChecked={window.setting.ajaxInterceptor_switchOn}
           onChange={this.handleSwitchChange}

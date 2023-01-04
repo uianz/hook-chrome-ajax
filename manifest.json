@@ -1,18 +1,13 @@
 {
   "name": "HookAjax",
-  "version": "2.1",
+  "version": "3.1",
   "description": "HookAjax XHR Fetch",
   "permissions": [
     "storage",
-    "tabs",
-    "http://*/",
-    "https://*/"
+    "tabs"
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": true
-  },
-  "browser_action": {
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "images/16_gray.png",
@@ -20,7 +15,10 @@
     "48": "images/48.png",
     "128": "images/128.png"
   },
-  "manifest_version": 2,
+  "browser_action": {
+
+  },
+  "manifest_version": 3,
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -29,9 +27,10 @@
       "all_frames": true
     }
   ],
-  "web_accessible_resources": [
-    "pageScripts/defaultSettings.js",
-    "pageScripts/main.js",
-    "iframe/index.html"
-  ]
+  "web_accessible_resources": [{
+    "resources": ["pageScripts/defaultSettings.js","pageScripts/main.js", "iframe/index.html"],
+    "matches": ["<all_urls>"],
+    "extension_ids": []
+  }],
+  "action": {}
 }
